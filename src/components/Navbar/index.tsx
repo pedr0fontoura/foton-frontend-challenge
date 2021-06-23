@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-import { Home, Book, Profile } from '../icons';
+import { Home, Library, Profile } from '../icons';
 
 import { Container, Content, Link } from './styles';
 
@@ -15,7 +15,7 @@ const Navbar = () => {
           Home
         </Link>
         <button type="button" disabled>
-          <Book />
+          <Library />
           Libraries
         </button>
         <button type="button" disabled>
