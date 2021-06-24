@@ -213,3 +213,9 @@ export const LoadMoreButton = styled.button`
     height: 200px;
   }
 `;
+
+export const Message = styled.p`
+  margin: 50px auto;
+
+  font-size: 24px;
+`;

@@ -7,7 +7,17 @@ import api from '../../services/api';
 import Navbar from '../../components/Navbar';
 import { Search, EyeOff } from '../../components/icons';
 
-import { Container, ContentWrapper, Content, SearchBox, Greetings, Grid, Card, LoadMoreButton } from './styles';
+import {
+  Container,
+  ContentWrapper,
+  Content,
+  SearchBox,
+  Greetings,
+  Grid,
+  Card,
+  LoadMoreButton,
+  Message,
+} from './styles';
 
 interface IExtractedParsedAuthors {
   [id: string]: string;
@@ -32,6 +42,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
 
+  const isBookListEmpty = useMemo(() => books.length === 0, [books]);
   const parsedAuthors = useMemo(() => extractParsedAuthors(books), [books]);
 
   const handleSearch = useCallback(
@@ -46,7 +57,7 @@ const Home = () => {
           setSearchLimit(DEFAULT_SEARCH_LIMIT);
 
           const { data } = await api.get<IBooksApiResponse>(`/volumes?q=${title}&maxResults=${searchLimit}`);
-          setBooks(data.items);
+          setBooks(data.items || []);
         }
       } catch (err) {
         console.log(err);
@@ -65,6 +76,28 @@ const Home = () => {
     [setSearchInputValue, handleSearch],
   );
 
+  const handleLoadMore = useCallback(
+    async (searchValue: string) => {
+      const updatedSearchLimit = searchLimit + DEFAULT_SEARCH_LIMIT;
+
+      if (updatedSearchLimit > 40) return;
+
+      setIsLoading(true);
+
+      try {
+        const { data } = await api.get<IBooksApiResponse>(`/volumes?q=${searchValue}&maxResults=${updatedSearchLimit}`);
+        setBooks(data.items || []);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
+
+      setSearchLimit(updatedSearchLimit);
+    },
+    [searchLimit, setIsLoading, setBooks, setIsLoading],
+  );
+
   return (
     <Container>
       <ContentWrapper>
@@ -78,7 +111,7 @@ const Home = () => {
             Hi, <strong>Mehmed Al Fatih</strong> 👋
           </Greetings>
 
-          {!isLoading && isSearching && (
+          {!isLoading && isSearching && !isBookListEmpty && (
             <Grid>
               {books.map(({ id, volumeInfo }) => (
                 <Card key={id} to={`/books/${id}`}>
@@ -96,9 +129,11 @@ const Home = () => {
                 </Card>
               ))}
 
-              <LoadMoreButton>Load more ...</LoadMoreButton>
+              <LoadMoreButton onClick={() => handleLoadMore(searchInputValue)}>Load more ...</LoadMoreButton>
             </Grid>
           )}
+
+          {isSearching && !isLoading && isBookListEmpty && <Message>No books found ...</Message>}
         </Content>
       </ContentWrapper>
       <Navbar />
