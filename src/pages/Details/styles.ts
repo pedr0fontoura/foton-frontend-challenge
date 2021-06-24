@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
@@ -39,22 +39,20 @@ export const BackButton = styled(Link)`
 `;
 
 export const Cover = styled.figure`
+  height: 229px;
   width: 153px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   position: relative;
 
+  border-radius: 5px;
+
   margin: 84px auto -36px auto;
 
-  img {
-    height: 229px;
-    width: 100%;
-
-    position: relative;
-
-    border-radius: 5px;
-
-    object-fit: cover;
-  }
+  background: rgba(0, 0, 0, 0.1);
 
   &::after {
     content: '';
@@ -71,56 +69,88 @@ export const Cover = styled.figure`
   }
 
   @media (min-width: 768px) {
+    height: 279px;
     width: 203px;
+  }
 
-    img {
-      height: 279px;
-    }
+  > img {
+    height: 100%;
+    width: 100%;
+
+    position: relative;
+
+    border-radius: 5px;
+
+    object-fit: cover;
+  }
+
+  > svg {
+    height: 64px;
+    width: 64px;
+
+    color: rgba(0, 0, 0, 0.2);
   }
 `;
 
 export const Article = styled.article`
   max-width: 768px;
+  width: 100%;
 
   padding: 67px 20px 0 20px;
   margin: 0 auto;
 
-  h1 {
-    margin-bottom: 7px;
-
-    color: #36383a;
-    font-weight: 400;
-
-    strong {
-      font-size: 24px;
-      font-weight: bold;
-
-      &::after {
-        content: ':';
-        margin: 0 4px;
-      }
-    }
-  }
-
-  span {
-    display: block;
-
-    margin-bottom: 10px;
-
-    color: #ff6978;
-  }
-
-  p {
-    color: rgba(49, 49, 49, 0.6);
-
-    font-size: 14px;
-    line-height: 25px;
-
-    white-space: pre-line;
-  }
-
   @media (min-width: 768px) {
     padding-top: 134px;
+  }
+`;
+
+export const Title = styled.h1`
+  margin-bottom: 7px;
+
+  font-size: 24px;
+  font-weight: bold;
+  color: #36383a;
+
+  span {
+    font-weight: 400;
+
+    &::before {
+      content: ':';
+      margin: 0 4px;
+    }
+  }
+`;
+
+export const Authors = styled.p`
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #ff6978;
+`;
+
+export const Description = styled.div`
+  color: rgba(49, 49, 49, 0.6);
+
+  font-size: 14px;
+  line-height: 25px;
+
+  white-space: pre-line;
+
+  p {
+    margin: 4px 0;
+  }
+`;
+
+const slideInFromBotton = keyframes`
+ 0% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 `;
 
@@ -136,6 +166,8 @@ export const Actions = styled.div`
 
   background: #ffffff;
   box-shadow: 3px 3px 23px rgba(107, 103, 70, 0.125901);
+
+  animation: 0.5s ease-out 0s 1 ${slideInFromBotton};
 
   button {
     height: 100%;
@@ -186,4 +218,10 @@ export const Actions = styled.div`
       }
     }
   }
+`;
+
+export const Message = styled.p`
+  margin: 50px auto;
+
+  font-size: 24px;
 `;

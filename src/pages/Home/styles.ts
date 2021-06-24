@@ -144,6 +144,8 @@ export const Card = styled(Link)`
 
     overflow: hidden;
 
+    background: rgba(0, 0, 0, 0.1);
+
     > img {
       height: 100%;
       width: 100%;
