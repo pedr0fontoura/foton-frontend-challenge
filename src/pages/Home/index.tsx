@@ -23,7 +23,10 @@ interface IExtractedParsedAuthors {
   [id: string]: string;
 }
 
-const DEFAULT_SEARCH_LIMIT = 10;
+const DEFAULT_SEARCH_MAX_RESULTS = 10;
+
+// Taken from https://developers.google.com/books/docs/v1/using#st_params
+const SEARCH_MAX_RESULTS_LIMIT = 40;
 
 const extractParsedAuthors = (books: IBook[]): IExtractedParsedAuthors => {
   const parsedAuthorsByBookId = books.reduce((accumulator, book) => {
@@ -37,35 +40,44 @@ const Home = () => {
   const [books, setBooks] = useState<IBook[]>([]);
 
   const [searchInputValue, setSearchInputValue] = useState('');
-  const [searchLimit, setSearchLimit] = useState(DEFAULT_SEARCH_LIMIT);
+  const [searchMaxResults, setSearchMaxResults] = useState(DEFAULT_SEARCH_MAX_RESULTS);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSearching, setIsSearching] = useState(false);
 
-  const isBookListEmpty = useMemo(() => books.length === 0, [books]);
+  const [error, setError] = useState(false);
+
   const parsedAuthors = useMemo(() => extractParsedAuthors(books), [books]);
+  const isBookListEmpty = useMemo(() => books.length === 0, [books]);
+  const canLoadMoreBooks = useMemo(() => searchMaxResults < SEARCH_MAX_RESULTS_LIMIT, [searchMaxResults]);
 
   const handleSearch = useCallback(
     debounce(async (title: string): Promise<void> => {
       setIsSearching(true);
       setIsLoading(true);
 
-      try {
-        if (title.length === 0) {
-          setIsSearching(false);
-        } else {
-          setSearchLimit(DEFAULT_SEARCH_LIMIT);
-
-          const { data } = await api.get<IBooksApiResponse>(`/volumes?q=${title}&maxResults=${searchLimit}`);
-          setBooks(data.items || []);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
+      if (!title.length) {
+        setIsSearching(false);
         setIsLoading(false);
+        setError(false);
+        return;
       }
+
+      try {
+        setSearchMaxResults(DEFAULT_SEARCH_MAX_RESULTS);
+
+        const { data } = await api.get<IBooksApiResponse>(
+          `/volumes?q=${title}&maxResults=${DEFAULT_SEARCH_MAX_RESULTS}`,
+        );
+
+        setBooks(data.items || []);
+      } catch {
+        setError(true);
+      }
+
+      setIsLoading(false);
     }, 500),
-    [setIsSearching, setSearchLimit, setBooks, setIsLoading],
+    [setIsSearching, setSearchMaxResults, searchMaxResults, setBooks, setIsLoading],
   );
 
   const handleSearchInputChange = useCallback(
@@ -78,24 +90,26 @@ const Home = () => {
 
   const handleLoadMore = useCallback(
     async (searchValue: string) => {
-      const updatedSearchLimit = searchLimit + DEFAULT_SEARCH_LIMIT;
+      const updatedsearchResults = searchMaxResults + DEFAULT_SEARCH_MAX_RESULTS;
 
-      if (updatedSearchLimit > 40) return;
+      if (!canLoadMoreBooks) return;
 
       setIsLoading(true);
 
       try {
-        const { data } = await api.get<IBooksApiResponse>(`/volumes?q=${searchValue}&maxResults=${updatedSearchLimit}`);
+        const { data } = await api.get<IBooksApiResponse>(
+          `/volumes?q=${searchValue}&maxResults=${updatedsearchResults}`,
+        );
+
         setBooks(data.items || []);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setIsLoading(false);
+      } catch {
+        setError(true);
       }
 
-      setSearchLimit(updatedSearchLimit);
+      setIsLoading(false);
+      setSearchMaxResults(updatedsearchResults);
     },
-    [searchLimit, setIsLoading, setBooks, setIsLoading],
+    [searchMaxResults, canLoadMoreBooks, setIsLoading, setBooks, setIsLoading],
   );
 
   return (
@@ -111,7 +125,7 @@ const Home = () => {
             Hi, <strong>Mehmed Al Fatih</strong> 👋
           </Greetings>
 
-          {!isLoading && isSearching && !isBookListEmpty && (
+          {isSearching && !isLoading && !error && !isBookListEmpty && (
             <Grid>
               {books.map(({ id, volumeInfo }) => (
                 <Card key={id} to={`/books/${id}`}>
@@ -129,11 +143,15 @@ const Home = () => {
                 </Card>
               ))}
 
-              <LoadMoreButton onClick={() => handleLoadMore(searchInputValue)}>Load more ...</LoadMoreButton>
+              {canLoadMoreBooks && (
+                <LoadMoreButton onClick={() => handleLoadMore(searchInputValue)}>Load more ...</LoadMoreButton>
+              )}
             </Grid>
           )}
 
-          {isSearching && !isLoading && isBookListEmpty && <Message>No books found ...</Message>}
+          {isSearching && !isLoading && !error && isBookListEmpty && <Message>No books found ...</Message>}
+
+          {!isLoading && error && <Message>Something went wrong ...</Message>}
         </Content>
       </ContentWrapper>
       <Navbar />
