@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+
+interface IGreetingsProps {
+  $hide: boolean;
+}
 
 export const Container = styled.div`
   height: 100vh;
@@ -66,7 +70,7 @@ export const SearchBox = styled.div`
   }
 `;
 
-export const Greetings = styled.h1`
+export const Greetings = styled.h1<IGreetingsProps>`
   margin-top: 30px;
 
   color: #54565a;
@@ -80,6 +84,19 @@ export const Greetings = styled.h1`
     color: #ff6a79;
     font-weight: 600;
   }
+
+  ${({ $hide }) =>
+    $hide
+      ? css`
+          height: 0;
+          margin-top: 0;
+          opacity: 0;
+        `
+      : css`
+          margin-top: 30px;
+          height: default;
+          opacity: 1;
+        `}
 `;
 
 export const Grid = styled.div`
@@ -110,14 +127,35 @@ export const Card = styled(Link)`
   text-decoration: none;
   color: rgba(49, 49, 49, 0.8);
 
-  > img {
+  > figure {
     width: 100%;
     height: 150px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     border: none;
     border-radius: 5px;
 
-    object-fit: cover;
+    margin-bottom: 8px;
+
+    font-size: 15px;
+
+    overflow: hidden;
+
+    > img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    svg {
+      height: 32px;
+      width: 32px;
+
+      color: rgba(0, 0, 0, 0.2);
+    }
   }
 
   > p {
@@ -130,12 +168,16 @@ export const Card = styled(Link)`
     font-family: 'Roboto', sans-serif;
     font-size: 10px;
     font-weight: 900;
-    line-height: 12px;
   }
 
   @media (min-width: 768px) {
-    > img {
+    > figure {
       height: 200px;
+
+      > svg {
+        height: 64px;
+        width: 64px;
+      }
     }
 
     > p {
