@@ -29,9 +29,9 @@ With a high level of detail, the website delivers an enjoyable and smooth experi
 
 ## 📱 Preview
 
-<img alt="Preview" src="./.github/preview.gif" />
+You can also access the live preview [here](https://foton-frontend-challenge.vercel.app).
 
-<br />
+<img alt="Preview" src="./.github/preview.gif" height="406px" />
 
 ## 💻 Running locally
 
@@ -54,7 +54,7 @@ $ yarn dev
 
 ## :memo: License
 
-This project is under the MIT license. Check the [license](https://github.com/pedr0fontoura/foton-frontend-challenge/blob/master/LICENSE) for more information.
+This project is under the MIT license. Check the [license](https://github.com/pedr0fontoura/foton-frontend-challenge/blob/main/LICENSE) for more information.
 
 <br />
 
