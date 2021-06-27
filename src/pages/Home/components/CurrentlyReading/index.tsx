@@ -1,3 +1,7 @@
+import { useMemo } from 'react';
+
+import { parseAuthors } from '../../../../utils';
+
 import { BlueCircunference, SmallCornerTexturedCircle, PinkRectangle } from '../../../../components/shapes';
 import { CurrentBook } from '../../../../components/icons';
 
@@ -23,6 +27,8 @@ const CurrentlyReading = ({
   totalChapters = 9,
   imageUrl = DEFAULT_IMAGE_URL,
 }: ICurrentlyReadingProps) => {
+  const parsedAuthors = useMemo(() => parseAuthors(authors), [authors]);
+
   return (
     <Container to={`/books/${bookId}`}>
       <Content>
@@ -32,7 +38,7 @@ const CurrentlyReading = ({
 
         <Info>
           <Title>{title}</Title>
-          <Authors>{authors}</Authors>
+          <Authors>by {parsedAuthors}</Authors>
           <Chapter>
             <CurrentBook /> Chapter <strong>{currentChapter}</strong> From {totalChapters}
           </Chapter>

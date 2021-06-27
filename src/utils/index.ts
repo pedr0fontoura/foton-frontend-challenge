@@ -4,15 +4,15 @@ interface IExtractedParsedAuthors {
   [id: string]: string;
 }
 
-export const parseAuthors = (book?: IBook): string => {
-  if (!book) return '';
+export const parseAuthors = (authors?: string[]): string => {
+  if (!authors) return '';
 
-  return book.volumeInfo.authors?.join(', ');
+  return authors.join(', ');
 };
 
 export const extractParsedAuthors = (books: IBook[]): IExtractedParsedAuthors => {
   const parsedAuthorsByBookId = books.reduce((accumulator, book) => {
-    return { ...accumulator, [book.id]: parseAuthors(book) };
+    return { ...accumulator, [book.id]: parseAuthors(book.volumeInfo.authors) };
   }, {});
 
   return parsedAuthorsByBookId;

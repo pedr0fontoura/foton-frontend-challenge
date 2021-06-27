@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+
+import { parseAuthors } from '../../../../utils';
 
 import { Charts } from '../../../../components/icons';
 import { TexturedCircle, BlueCircunference, PinkRectangle, OrangeTriangle } from '../../../../components/shapes';
@@ -35,26 +37,30 @@ const defaultFeaturedBooks: IFeaturedBookProps[] = [
   },
 ];
 
-const FeaturedBook = ({ bookId, title, authors, stats, imageUrl, color }: IFeaturedBookProps) => (
-  <Card $bgColor={color} to={`/books/${bookId}`}>
-    <TexturedCircle style={{ position: 'absolute', left: '-9.2%', top: '17.9%' }} />
-    <BlueCircunference style={{ position: 'absolute', left: '53%', top: '10%' }} />
-    <PinkRectangle style={{ position: 'absolute', left: '53%', top: '68.7%', zIndex: 1 }} />
-    <OrangeTriangle style={{ position: 'absolute', left: '62.9%', top: '2.7%', zIndex: 1 }} />
+const FeaturedBook = ({ bookId, title, authors, stats, imageUrl, color }: IFeaturedBookProps) => {
+  const parsedAuthors = useMemo(() => parseAuthors(authors), [authors]);
 
-    <Info>
-      <Title>{title}</Title>
-      <Authors>{authors}</Authors>
-      <Stats>
-        <Charts />
-        <strong>{stats}+</strong> Read Now
-      </Stats>
-    </Info>
-    <Cover>
-      <img src={imageUrl} alt={title} />
-    </Cover>
-  </Card>
-);
+  return (
+    <Card $bgColor={color} to={`/books/${bookId}`}>
+      <TexturedCircle style={{ position: 'absolute', left: '-9.2%', top: '17.9%' }} />
+      <BlueCircunference style={{ position: 'absolute', left: '53%', top: '10%' }} />
+      <PinkRectangle style={{ position: 'absolute', left: '53%', top: '68.7%', zIndex: 1 }} />
+      <OrangeTriangle style={{ position: 'absolute', left: '62.9%', top: '2.7%', zIndex: 1 }} />
+
+      <Info>
+        <Title>{title}</Title>
+        <Authors>{parsedAuthors}</Authors>
+        <Stats>
+          <Charts />
+          <strong>{stats}+</strong> Read Now
+        </Stats>
+      </Info>
+      <Cover>
+        <img src={imageUrl} alt={title} />
+      </Cover>
+    </Card>
+  );
+};
 
 const FeaturedBooks = () => {
   const [featuredBooks] = useState(defaultFeaturedBooks);

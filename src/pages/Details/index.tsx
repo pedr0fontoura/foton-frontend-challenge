@@ -43,7 +43,7 @@ const Details = () => {
 
   const { id } = useParams<IRouteParams>();
 
-  const parsedAuthors = useMemo(() => parseAuthors(book), [book]);
+  const parsedAuthors = useMemo(() => parseAuthors(book?.volumeInfo.authors), [book]);
 
   const updatedDescriptionRef = useCallback(
     (node: HTMLDivElement) => {
