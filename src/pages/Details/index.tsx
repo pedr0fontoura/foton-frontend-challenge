@@ -8,8 +8,13 @@ import { parseAuthors } from '../../utils';
 import api from '../../services/api';
 
 import { Back, EyeOff, Book, Headphones, Share } from '../../components/icons';
-
-import { Shape1, Shape2, Shape3, Shape4, Shape5 } from './shapes';
+import {
+  PinkCircle,
+  DarkBlueCircle,
+  LargeBlueCircunference,
+  SmallTexturedCircle,
+  CornerTexturedCircle,
+} from '../../components/shapes';
 
 import {
   Container,
@@ -83,11 +88,11 @@ const Details = () => {
             <Back />
           </BackButton>
 
-          <Shape1 style={{ position: 'absolute', left: '12.5%', top: '44.3%' }} />
-          <Shape2 style={{ position: 'absolute', left: '19.6%', top: '40.7%' }} />
-          <Shape3 style={{ position: 'absolute', left: '66.2%', top: '30.5%' }} />
-          <Shape4 style={{ position: 'absolute', left: '59.3%', top: '77.3%' }} />
-          <Shape5 style={{ position: 'absolute', right: '0', top: '0' }} />
+          <PinkCircle style={{ position: 'absolute', left: '12.5%', top: '44.3%' }} />
+          <DarkBlueCircle style={{ position: 'absolute', left: '19.6%', top: '40.7%' }} />
+          <LargeBlueCircunference style={{ position: 'absolute', left: '66.2%', top: '30.5%' }} />
+          <SmallTexturedCircle style={{ position: 'absolute', left: '59.3%', top: '77.3%' }} />
+          <CornerTexturedCircle style={{ position: 'absolute', right: '0', top: '0' }} />
 
           {!isLoading && !error && (
             <Cover>

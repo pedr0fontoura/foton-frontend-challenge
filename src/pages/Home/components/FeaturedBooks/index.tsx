@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 import { Charts } from '../../../../components/icons';
-
-import { Shape1, Shape2, Shape3, Shape4 } from './shapes';
+import { TexturedCircle, BlueCircunference, PinkRectangle, OrangeTriangle } from '../../../../components/shapes';
 
 import { Container, Card, Cover, Info, Title, Authors, Stats } from './styles';
 
@@ -38,10 +37,10 @@ const defaultFeaturedBooks: IFeaturedBookProps[] = [
 
 const FeaturedBook = ({ bookId, title, authors, stats, imageUrl, color }: IFeaturedBookProps) => (
   <Card $bgColor={color} to={`/books/${bookId}`}>
-    <Shape1 style={{ position: 'absolute', left: '-9.2%', top: '17.9%' }} />
-    <Shape2 style={{ position: 'absolute', left: '53%', top: '10%' }} />
-    <Shape3 style={{ position: 'absolute', left: '53%', top: '68.7%', zIndex: 1 }} />
-    <Shape4 style={{ position: 'absolute', left: '62.9%', top: '2.7%', zIndex: 1 }} />
+    <TexturedCircle style={{ position: 'absolute', left: '-9.2%', top: '17.9%' }} />
+    <BlueCircunference style={{ position: 'absolute', left: '53%', top: '10%' }} />
+    <PinkRectangle style={{ position: 'absolute', left: '53%', top: '68.7%', zIndex: 1 }} />
+    <OrangeTriangle style={{ position: 'absolute', left: '62.9%', top: '2.7%', zIndex: 1 }} />
 
     <Info>
       <Title>{title}</Title>

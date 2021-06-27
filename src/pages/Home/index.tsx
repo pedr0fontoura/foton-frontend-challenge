@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { debounce } from 'lodash';
 
 import { IBook, IBooksApiResponse } from '../../types';
@@ -120,13 +121,29 @@ const Home = () => {
           </Greetings>
 
           {!isSearching && (
-            <Section>
-              <SectionHeader>
-                <h2>Discover new book</h2>
-                <a href="/#">More</a>
-              </SectionHeader>
-              <FeaturedBooks />
-            </Section>
+            <>
+              <Section>
+                <SectionHeader>
+                  <h2>Discover new book</h2>
+                  <Link to="/#">More</Link>
+                </SectionHeader>
+                <FeaturedBooks />
+              </Section>
+
+              <Section>
+                <SectionHeader>
+                  <h2>Currently Reading</h2>
+                  <Link to="/#">All</Link>
+                </SectionHeader>
+              </Section>
+
+              <Section>
+                <SectionHeader>
+                  <h2>Reviews of The Days</h2>
+                  <Link to="/#">All Videos</Link>
+                </SectionHeader>
+              </Section>
+            </>
           )}
 
           {isSearching && !isLoading && !error && !isBookListEmpty && (
