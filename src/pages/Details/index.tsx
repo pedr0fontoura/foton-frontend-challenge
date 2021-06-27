@@ -1,8 +1,10 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { IBook } from '../../types';
+
+import { parseAuthors } from '../../utils';
 import api from '../../services/api';
 
 import { Back, EyeOff, Book, Headphones, Share } from '../../components/icons';
@@ -35,6 +37,8 @@ const Details = () => {
   const [error, setError] = useState(false);
 
   const { id } = useParams<IRouteParams>();
+
+  const parsedAuthors = useMemo(() => parseAuthors(book), [book]);
 
   const updatedDescriptionRef = useCallback(
     (node: HTMLDivElement) => {
@@ -103,7 +107,7 @@ const Details = () => {
               {book.volumeInfo.subtitle && <span>{book.volumeInfo.subtitle}</span>}
             </Title>
 
-            <Authors>Robert C. Martin</Authors>
+            <Authors>{parsedAuthors}</Authors>
 
             <Description ref={updatedDescriptionRef} />
           </Article>

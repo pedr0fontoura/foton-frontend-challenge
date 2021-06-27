@@ -2,6 +2,8 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { debounce } from 'lodash';
 
 import { IBook, IBooksApiResponse } from '../../types';
+
+import { extractParsedAuthors } from '../../utils';
 import api from '../../services/api';
 
 import Navbar from '../../components/Navbar';
@@ -23,22 +25,10 @@ import {
   SectionHeader,
 } from './styles';
 
-interface IExtractedParsedAuthors {
-  [id: string]: string;
-}
-
 const DEFAULT_SEARCH_MAX_RESULTS = 10;
 
 // Taken from https://developers.google.com/books/docs/v1/using#st_params
 const SEARCH_MAX_RESULTS_LIMIT = 40;
-
-const extractParsedAuthors = (books: IBook[]): IExtractedParsedAuthors => {
-  const parsedAuthorsByBookId = books.reduce((accumulator, book) => {
-    return { ...accumulator, [book.id]: book.volumeInfo.authors?.join(', ') };
-  }, {});
-
-  return parsedAuthorsByBookId;
-};
 
 const Home = () => {
   const [books, setBooks] = useState<IBook[]>([]);
