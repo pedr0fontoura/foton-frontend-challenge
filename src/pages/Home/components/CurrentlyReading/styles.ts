@@ -25,6 +25,7 @@ export const Content = styled.div`
   display: flex;
 
   margin-left: -20px;
+  border-radius: 0 4px 4px 0;
 
   background: #eef5db;
 

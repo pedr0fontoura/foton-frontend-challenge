@@ -18,21 +18,21 @@ interface IFeaturedBookProps {
 
 const defaultFeaturedBooks: IFeaturedBookProps[] = [
   {
-    bookId: 'GXWkDwAAQBAJ',
-    title: 'Clean Code',
-    authors: ['Robert C. Martin'],
-    stats: 120,
-    imageUrl:
-      'https://books.google.com/books/publisher/content?id=GXWkDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE703DwhGxAmUQZ_8sqjiUIva9nNOqcUbzhvVFszRecSj1CvCNT3XjqQ_coMS1PlwM4zk5M2sUvr6eSN0esbWf0hKcxMSV3yPhAFAWQEU19uOnoIm7UNUEKtfekOiyJFt94rrrVxh&source=gbs_api',
-    color: '#00173d',
-  },
-  {
     bookId: 'dsz5AwAAQBAJ',
     title: 'Hooked',
     authors: ['Nir Eyal'],
-    stats: 90,
+    stats: 120,
     imageUrl:
       'https://books.google.com/books/publisher/content?id=dsz5AwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE723CgWk6Fcs2-fHzbEBs2_BK5jVRFS1OF-ObowT8btz4eYMRxp2haqh79PxX6xDe65XI2obGtSCKNTYRYn42olMzqL_NjSIwvVdMYV_2qsvHjesg4bJ2-I7XxH1MwigfxLeXZiR&source=gbs_api',
+    color: '#00173d',
+  },
+  {
+    bookId: '_i6bDeoCQzsC',
+    title: 'Clean Code',
+    authors: ['Robert C. Martin'],
+    stats: 90,
+    imageUrl:
+      'https://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71JsJVh3xdEWIhP9ErGQq8GR_mTS3TRxk_hapfNRlJb1TQE5HTEABGJagmSaiQBiS4Lsc4q9yHVlY2S6s7pgncd72A1hN7BwzSSsC9yM-tZIea2u23OitFDfoPdmAtyhfWrTd5i&source=gbs_api',
     color: '#451475',
   },
 ];

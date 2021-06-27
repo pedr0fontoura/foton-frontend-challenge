@@ -5,6 +5,8 @@ export const Container = styled(Link)`
   height: 267px;
   width: 100%;
 
+  display: block;
+
   border-radius: 4px;
 
   text-decoration: none;
@@ -18,12 +20,29 @@ export const Cover = styled.figure`
   height: 181px;
   width: 100%;
 
+  position: relative;
+
+  overflow: hidden;
+
   img {
     height: 100%;
     width: 100%;
 
     object-fit: cover;
+
+    filter: brightness(0.9);
   }
+`;
+
+export const ReflexEffect = styled.div`
+  height: 25px;
+  width: 25px;
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.1);
 `;
 
 export const Content = styled.div`

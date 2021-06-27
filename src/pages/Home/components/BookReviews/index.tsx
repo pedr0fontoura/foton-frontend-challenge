@@ -1,4 +1,6 @@
-import { Container, Cover, Content, Title, Info, Text } from './styles';
+import { SmallCornerTexturedCircle } from '../../../../components/shapes';
+
+import { Container, Cover, Content, Title, Info, Text, ReflexEffect } from './styles';
 
 const BookReviews = () => {
   return (
@@ -7,6 +9,12 @@ const BookReviews = () => {
         <img
           src="https://s3-alpha-sig.figma.com/img/18ee/3c66/8a3aaad596e85f46d30dd3895020cbc8?Expires=1625443200&Signature=MwIzGL8ciSYmIbCbbqtV1QbLpuNXDro-EtolOS~XHe4vYLmsDYG-IiED24N9nLnVcsgCggXiWERWNVXBGyelj1K9sKXt6pPVtz~4hqOb~pVU78QZekXaCJk4KA9EM8aq6c1gEHd~b~cXmDOl5AaKBb-Mh7dtriJzRA63yWyu--Bn0SojXhQBvcHtEPNl9Kk4ZlJ8iKULLj9ep0hyvfDZqoJdzhKDSvEZs7rSfHBtHJnU2~zOfqU4WY-fH2f7EO3-MPURhO2GXHo~k-LEkFHmXZXNftRRj-hi6ykIF0s7AbDs9vNDXPKjp3LVbiOdeLLYU0~MdUTi5bwyMPhP8dbF2A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
           alt="Don't Make Me Think Review"
+        />
+
+        <ReflexEffect style={{ height: '175px', width: '175px', left: '-1.5%', top: '-11%' }} />
+        <ReflexEffect style={{ height: '116px', width: '116px', left: '58.8%', top: '11%' }} />
+        <SmallCornerTexturedCircle
+          style={{ position: 'absolute', left: '89.8%', top: '-11%', height: '69px', width: '69px' }}
         />
       </Cover>
       <Content>

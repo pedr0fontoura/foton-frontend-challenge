@@ -53,7 +53,7 @@ const Details = () => {
       if (node !== null && book) {
         const element = node;
 
-        element.innerHTML = book.volumeInfo.description;
+        element.innerHTML = book.volumeInfo.description || '...';
       }
     },
     [book],
