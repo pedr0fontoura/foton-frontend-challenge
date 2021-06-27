@@ -1,15 +1,26 @@
+import { useState, useEffect } from 'react';
+
+import { IBookReview } from '../../../../types';
+
+import { getBookReviews } from '../../../../mocks';
 import { SmallCornerTexturedCircle } from '../../../../components/shapes';
 
-import { Container, Cover, Content, Title, Info, Text, ReflexEffect } from './styles';
+import { Container, Card, Cover, Content, Title, Info, Text, ReflexEffect } from './styles';
 
-const BookReviews = () => {
+interface IBookReviewProps {
+  title: string;
+  author: string;
+  views: number;
+  date: Date;
+  text: string;
+  imageUrl: string;
+}
+
+const BookReview = ({ title, author, views, date, text, imageUrl }: IBookReviewProps) => {
   return (
-    <Container to="/#">
+    <Card to="/#">
       <Cover>
-        <img
-          src="https://s3-alpha-sig.figma.com/img/18ee/3c66/8a3aaad596e85f46d30dd3895020cbc8?Expires=1625443200&Signature=MwIzGL8ciSYmIbCbbqtV1QbLpuNXDro-EtolOS~XHe4vYLmsDYG-IiED24N9nLnVcsgCggXiWERWNVXBGyelj1K9sKXt6pPVtz~4hqOb~pVU78QZekXaCJk4KA9EM8aq6c1gEHd~b~cXmDOl5AaKBb-Mh7dtriJzRA63yWyu--Bn0SojXhQBvcHtEPNl9Kk4ZlJ8iKULLj9ep0hyvfDZqoJdzhKDSvEZs7rSfHBtHJnU2~zOfqU4WY-fH2f7EO3-MPURhO2GXHo~k-LEkFHmXZXNftRRj-hi6ykIF0s7AbDs9vNDXPKjp3LVbiOdeLLYU0~MdUTi5bwyMPhP8dbF2A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-          alt="Don't Make Me Think Review"
-        />
+        <img src={imageUrl} alt={title} />
 
         <ReflexEffect style={{ height: '175px', width: '175px', left: '-1.5%', top: '-11%' }} />
         <ReflexEffect style={{ height: '116px', width: '116px', left: '58.8%', top: '11%' }} />
@@ -18,18 +29,44 @@ const BookReviews = () => {
         />
       </Cover>
       <Content>
-        <Title>Don&apos;t Make Me Think - Steve Krug</Title>
+        <Title>{title}</Title>
         <Info>
-          <li>Jesse Showalter</li>
-          <li>5.2K Views</li>
-          <li>1 Week ago</li>
+          <li>{author}</li>
+          <li>{views} Views</li>
+          <li>{date.toDateString()}</li>
         </Info>
-        <Text>
-          &quot;Don&apos;t Make Me Think&quot; by Steve Krug is one of the first books I read when I was getting into
-          digital design. It helped me move from designing things that just &quot;look nice&quot; to designing things
-          that are usable, useful, memorable and simple to learn and use.
-        </Text>
+        <Text>{text}</Text>
       </Content>
+    </Card>
+  );
+};
+
+const BookReviews = () => {
+  const [reviews, setReviews] = useState<IBookReview[]>([]);
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      const result = await getBookReviews();
+
+      setReviews(result);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <Container>
+      {reviews.map(({ title, author, views, date, text, imageUrl }) => (
+        <BookReview
+          key={`${title}_${author}`}
+          title={title}
+          author={author}
+          views={views}
+          date={date}
+          text={text}
+          imageUrl={imageUrl}
+        />
+      ))}
     </Container>
   );
 };
