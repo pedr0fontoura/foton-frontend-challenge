@@ -7,6 +7,8 @@ import api from '../../services/api';
 import Navbar from '../../components/Navbar';
 import { Search, EyeOff } from '../../components/icons';
 
+import FeaturedBooks from './components/FeaturedBooks';
+
 import {
   Container,
   ContentWrapper,
@@ -17,6 +19,8 @@ import {
   Card,
   LoadMoreButton,
   Message,
+  Section,
+  SectionHeader,
 } from './styles';
 
 interface IExtractedParsedAuthors {
@@ -124,6 +128,16 @@ const Home = () => {
           <Greetings $hide={isSearching}>
             Hi, <strong>Mehmed Al Fatih</strong> 👋
           </Greetings>
+
+          {!isSearching && (
+            <Section>
+              <SectionHeader>
+                <h2>Discover new book</h2>
+                <a href="/#">More</a>
+              </SectionHeader>
+              <FeaturedBooks />
+            </Section>
+          )}
 
           {isSearching && !isLoading && !error && !isBookListEmpty && (
             <Grid>

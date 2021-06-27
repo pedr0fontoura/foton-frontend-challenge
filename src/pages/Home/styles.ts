@@ -71,7 +71,7 @@ export const SearchBox = styled.div`
 `;
 
 export const Greetings = styled.h1<IGreetingsProps>`
-  margin-top: 30px;
+  margin: 30px 0;
 
   color: #54565a;
   font-size: 24px;
@@ -107,7 +107,6 @@ export const Grid = styled.div`
   grid-template-rows: auto;
 
   padding: 8px 0;
-  margin-top: 30px;
 
   justify-content: space-between;
   row-gap: 12px;
@@ -220,4 +219,26 @@ export const Message = styled.p`
   margin: 50px auto;
 
   font-size: 24px;
+`;
+
+export const Section = styled.div`
+  margin-bottom: 30px;
+`;
+
+export const SectionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 15px;
+
+  h2 {
+    color: rgba(63, 64, 67, 1);
+    font-size: 18px;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgba(74, 189, 241, 1);
+    font-size: 14px;
+  }
 `;
