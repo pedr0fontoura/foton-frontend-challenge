@@ -45,7 +45,7 @@ export const Info = styled.div`
   flex-direction: column;
 `;
 
-export const Title = styled.p`
+export const Title = styled.h3`
   font-family: 'Playfair Display';
   font-size: 27px;
   font-weight: 700;

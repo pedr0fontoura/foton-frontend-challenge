@@ -2,6 +2,7 @@ import React from 'react';
 
 import texturedCircle from '../../assets/texturedCircle.png';
 import cornerTexturedCircle from '../../assets/cornerTexturedCircle.png';
+import smallCornerTexturedCircle from '../../assets/smallCornerTexturedCircle.png';
 
 interface IShapeProps {
   style: React.CSSProperties;
@@ -63,6 +64,10 @@ export const SmallTexturedCircle = ({ style }: IShapeProps) => (
 
 export const TexturedCircle = ({ style }: IShapeProps) => (
   <img src={texturedCircle} alt="Textured Circle" style={{ ...style }} aria-hidden />
+);
+
+export const SmallCornerTexturedCircle = ({ style }: IShapeProps) => (
+  <img src={smallCornerTexturedCircle} alt="Corner Textured Circle" style={{ ...style }} aria-hidden />
 );
 
 export const CornerTexturedCircle = ({ style }: IShapeProps) => (

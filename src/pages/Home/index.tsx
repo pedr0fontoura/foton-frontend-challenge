@@ -11,6 +11,7 @@ import Navbar from '../../components/Navbar';
 import { Search, EyeOff } from '../../components/icons';
 
 import FeaturedBooks from './components/FeaturedBooks';
+import CurrentlyReading from './components/CurrentlyReading';
 
 import {
   Container,
@@ -135,6 +136,7 @@ const Home = () => {
                   <h2>Currently Reading</h2>
                   <Link to="/#">All</Link>
                 </SectionHeader>
+                <CurrentlyReading />
               </Section>
 
               <Section>
