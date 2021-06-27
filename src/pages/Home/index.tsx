@@ -12,6 +12,7 @@ import { Search, EyeOff } from '../../components/icons';
 
 import FeaturedBooks from './components/FeaturedBooks';
 import CurrentlyReading from './components/CurrentlyReading';
+import BookReviews from './components/BookReviews';
 
 import {
   Container,
@@ -144,6 +145,7 @@ const Home = () => {
                   <h2>Reviews of The Days</h2>
                   <Link to="/#">All Videos</Link>
                 </SectionHeader>
+                <BookReviews />
               </Section>
             </>
           )}
