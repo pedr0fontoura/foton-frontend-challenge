@@ -13,6 +13,7 @@ import { Search, EyeOff } from '../../components/icons';
 import FeaturedBooks from './components/FeaturedBooks';
 import CurrentlyReading from './components/CurrentlyReading';
 import BookReviews from './components/BookReviews';
+import LoadingGrid from './components/LoadingGrid';
 
 import {
   Container,
@@ -39,7 +40,7 @@ const Home = () => {
   const [searchInputValue, setSearchInputValue] = useState('');
   const [searchMaxResults, setSearchMaxResults] = useState(DEFAULT_SEARCH_MAX_RESULTS);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
 
   const [error, setError] = useState(false);
@@ -149,6 +150,8 @@ const Home = () => {
               </Section>
             </>
           )}
+
+          {isLoading && <LoadingGrid />}
 
           {isSearching && !isLoading && !error && !isBookListEmpty && (
             <Grid>

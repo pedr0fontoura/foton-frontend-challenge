@@ -16,6 +16,9 @@ import {
   CornerTexturedCircle,
 } from '../../components/shapes';
 
+import LoadingCover from './components/LoadingCover';
+import LoadingArticle from './components/LoadingArticle';
+
 import {
   Container,
   Header,
@@ -94,6 +97,8 @@ const Details = () => {
           <SmallTexturedCircle style={{ position: 'absolute', left: '59.3%', top: '77.3%' }} />
           <CornerTexturedCircle style={{ position: 'absolute', right: '0', top: '0' }} />
 
+          {isLoading && <LoadingCover />}
+
           {!isLoading && !error && (
             <Cover>
               {book?.volumeInfo.imageLinks ? (
@@ -104,6 +109,8 @@ const Details = () => {
             </Cover>
           )}
         </Header>
+
+        {isLoading && <LoadingArticle />}
 
         {!isLoading && !error && book && (
           <Article>

@@ -52,7 +52,7 @@ export const Cover = styled.figure`
 
   margin: 84px auto -36px auto;
 
-  background: rgba(0, 0, 0, 0.1);
+  background: #f8f8f8;
 
   &::after {
     content: '';
